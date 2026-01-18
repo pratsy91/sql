@@ -272,11 +272,12 @@ export default function Home() {
     {
       id: 'phase-20',
       title: 'Phase 20: Interview Cheatsheet',
-      description: 'Comprehensive interview cheatsheet covering SQL fundamentals, database design, relationships, query optimization, transactions, PostgreSQL-specific features, constraints, security, backup/recovery, partitioning, and common interview questions',
+      description: 'Comprehensive interview cheatsheet covering SQL fundamentals with Prisma equivalents, database design, relationships, Prisma ORM, query optimization, transactions, PostgreSQL-specific features, constraints, security, backup/recovery, partitioning, and common interview questions',
       lessons: [
         { id: 'core-sql-fundamentals', title: 'Core SQL Fundamentals', path: '/lessons/interview-cheatsheet/core-sql-fundamentals' },
         { id: 'database-design-normalization', title: 'Database Design & Normalization', path: '/lessons/interview-cheatsheet/database-design-normalization' },
         { id: 'database-relationships-cheatsheet', title: 'Database Relationships Cheatsheet', path: '/lessons/interview-cheatsheet/database-relationships-cheatsheet' },
+        { id: 'prisma-complete-cheatsheet', title: 'Prisma Complete Cheatsheet', path: '/lessons/interview-cheatsheet/prisma-complete-cheatsheet' },
         { id: 'transactions-concurrency', title: 'Transactions & Concurrency', path: '/lessons/interview-cheatsheet/transactions-concurrency' },
         { id: 'query-optimization-performance', title: 'Query Optimization & Performance', path: '/lessons/interview-cheatsheet/query-optimization-performance' },
         { id: 'constraints-security', title: 'Constraints & Security', path: '/lessons/interview-cheatsheet/constraints-security' },

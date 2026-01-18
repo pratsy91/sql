@@ -3,7 +3,7 @@ import CodeBlock from '../../../components/CodeBlock';
 
 export const metadata = {
   title: 'Core SQL Fundamentals - Interview Cheatsheet',
-  description: 'Essential SQL fundamentals for interviews',
+  description: 'Essential SQL fundamentals with Prisma equivalents for interviews',
 };
 
 export default function CoreSQLFundamentals() {
@@ -11,6 +11,29 @@ export default function CoreSQLFundamentals() {
     <LessonLayout>
       <div className="prose prose-lg dark:prose-invert max-w-none">
         <h1 className="text-4xl font-bold mb-6">Core SQL Fundamentals - Interview Cheatsheet</h1>
+        <p className="mb-4 text-lg">
+          Complete reference with SQL and Prisma equivalents for interview preparation.
+        </p>
+        
+        <section className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">Prisma Setup & Basics</h2>
+          <div className="bg-blue-50 dark:bg-zinc-800 p-4 rounded-lg mb-4">
+            <h3 className="font-semibold mb-2">Prisma Client Initialization</h3>
+            <CodeBlock
+              title="Prisma Client Setup"
+              language="typescript"
+              code={`// lib/prisma.ts
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+export default prisma
+
+// Usage
+import prisma from './lib/prisma'`}
+            />
+          </div>
+        </section>
         
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">SQL Command Categories</h2>
@@ -69,7 +92,7 @@ export default function CoreSQLFundamentals() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">SELECT Statement Syntax</h2>
           <CodeBlock
-            title="Complete SELECT Syntax"
+            title="SQL: Complete SELECT Syntax"
             language="sql"
             code={`SELECT 
   [DISTINCT | ALL]
@@ -88,6 +111,34 @@ FROM
 [LIMIT 
   count [OFFSET offset]]
 [FOR UPDATE | FOR SHARE];`}
+          />
+
+          <CodeBlock
+            title="Prisma: Equivalent SELECT Pattern"
+            language="typescript"
+            code={`// Prisma findMany (equivalent to SELECT)
+await prisma.model.findMany({
+  distinct: ['column'],      // DISTINCT
+  select: {                  // column_list (instead of *)
+    column1: true,
+    column2: true,
+  },
+  where: {                   // WHERE
+    condition: value,
+  },
+  orderBy: {                 // ORDER BY
+    column: 'asc' | 'desc',
+  },
+  take: 10,                  // LIMIT
+  skip: 20,                  // OFFSET
+});
+
+// include for JOINs
+await prisma.model.findMany({
+  include: {
+    relation: true,          // JOIN equivalent
+  },
+});`}
           />
 
           <h3 className="text-xl font-semibold mb-3 mt-6">SELECT Execution Order</h3>
@@ -115,7 +166,7 @@ FROM
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div className="bg-zinc-100 dark:bg-zinc-800 p-4 rounded-lg">
-              <h3 className="font-semibold mb-2">INNER JOIN</h3>
+              <h3 className="font-semibold mb-2">SQL: INNER JOIN</h3>
               <p className="text-sm mb-2">Returns only matching rows from both tables</p>
               <CodeBlock
                 title="INNER JOIN Example"
@@ -124,10 +175,22 @@ FROM
 FROM users u
 INNER JOIN orders o ON u.id = o.user_id;`}
               />
+              <div className="mt-2">
+                <p className="text-xs font-semibold mb-1">Prisma Equivalent:</p>
+                <CodeBlock
+                  title="Prisma: INNER JOIN"
+                  language="typescript"
+                  code={`await prisma.user.findMany({
+  include: {
+    orders: true,  // INNER JOIN behavior if required relation
+  },
+});`}
+                />
+              </div>
             </div>
 
             <div className="bg-zinc-100 dark:bg-zinc-800 p-4 rounded-lg">
-              <h3 className="font-semibold mb-2">LEFT JOIN</h3>
+              <h3 className="font-semibold mb-2">SQL: LEFT JOIN</h3>
               <p className="text-sm mb-2">Returns all rows from left table + matching rows from right</p>
               <CodeBlock
                 title="LEFT JOIN Example"
@@ -136,10 +199,22 @@ INNER JOIN orders o ON u.id = o.user_id;`}
 FROM users u
 LEFT JOIN orders o ON u.id = o.user_id;`}
               />
+              <div className="mt-2">
+                <p className="text-xs font-semibold mb-1">Prisma Equivalent:</p>
+                <CodeBlock
+                  title="Prisma: LEFT JOIN"
+                  language="typescript"
+                  code={`await prisma.user.findMany({
+  include: {
+    orders: true,  // LEFT JOIN - all users, even without orders
+  },
+});`}
+                />
+              </div>
             </div>
 
             <div className="bg-zinc-100 dark:bg-zinc-800 p-4 rounded-lg">
-              <h3 className="font-semibold mb-2">RIGHT JOIN</h3>
+              <h3 className="font-semibold mb-2">SQL: RIGHT JOIN</h3>
               <p className="text-sm mb-2">Returns all rows from right table + matching rows from left</p>
               <CodeBlock
                 title="RIGHT JOIN Example"
@@ -148,10 +223,23 @@ LEFT JOIN orders o ON u.id = o.user_id;`}
 FROM users u
 RIGHT JOIN orders o ON u.id = o.user_id;`}
               />
+              <div className="mt-2">
+                <p className="text-xs font-semibold mb-1">Prisma Equivalent:</p>
+                <CodeBlock
+                  title="Prisma: RIGHT JOIN"
+                  language="typescript"
+                  code={`// Reverse the query
+await prisma.order.findMany({
+  include: {
+    user: true,  // Start from orders table
+  },
+});`}
+                />
+              </div>
             </div>
 
             <div className="bg-zinc-100 dark:bg-zinc-800 p-4 rounded-lg">
-              <h3 className="font-semibold mb-2">FULL OUTER JOIN</h3>
+              <h3 className="font-semibold mb-2">SQL: FULL OUTER JOIN</h3>
               <p className="text-sm mb-2">Returns all rows from both tables</p>
               <CodeBlock
                 title="FULL OUTER JOIN Example"
@@ -160,6 +248,18 @@ RIGHT JOIN orders o ON u.id = o.user_id;`}
 FROM users u
 FULL OUTER JOIN orders o ON u.id = o.user_id;`}
               />
+              <div className="mt-2">
+                <p className="text-xs font-semibold mb-1">Prisma Equivalent:</p>
+                <CodeBlock
+                  title="Prisma: FULL OUTER JOIN"
+                  language="typescript"
+                  code={`// Use raw query or UNION
+await prisma.$queryRaw\`\`
+  SELECT * FROM "User" u
+  FULL OUTER JOIN "Order" o ON u.id = o.user_id
+\`\`;`}
+                />
+              </div>
             </div>
           </div>
 
@@ -176,7 +276,7 @@ FULL OUTER JOIN orders o ON u.id = o.user_id;`}
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Aggregate Functions</h2>
           <CodeBlock
-            title="Common Aggregate Functions"
+            title="SQL: Common Aggregate Functions"
             language="sql"
             code={`-- COUNT: Count rows
 SELECT COUNT(*) FROM users;
@@ -193,6 +293,39 @@ SELECT MIN(created_at), MAX(created_at) FROM orders;
 
 -- GROUP_CONCAT (PostgreSQL: string_agg)
 SELECT string_agg(name, ', ') FROM categories;`}
+          />
+
+          <CodeBlock
+            title="Prisma: Aggregate Functions"
+            language="typescript"
+            code={`// COUNT
+const totalUsers = await prisma.user.count();
+const usersWithEmail = await prisma.user.count({
+  where: { email: { not: null } },
+});
+
+// Aggregate (SUM, AVG, MIN, MAX)
+const stats = await prisma.order.aggregate({
+  _sum: { amount: true },
+  _avg: { amount: true },
+  _min: { createdAt: true },
+  _max: { createdAt: true },
+  _count: { id: true },
+});
+
+// Access results
+stats._sum.amount;   // Sum
+stats._avg.amount;   // Average
+stats._min.createdAt; // Minimum
+stats._max.createdAt; // Maximum
+stats._count.id;     // Count
+
+// Group by with aggregates
+const roleStats = await prisma.user.groupBy({
+  by: ['role'],
+  _count: { id: true },
+  _avg: { age: true },
+});`}
           />
 
           <div className="bg-blue-50 dark:bg-zinc-800 p-4 rounded-lg mb-4 mt-4">
@@ -222,7 +355,7 @@ FROM table_name;`}
           />
 
           <CodeBlock
-            title="Common Window Functions"
+            title="SQL: Common Window Functions"
             language="sql"
             code={`-- ROW_NUMBER: Sequential number for each row
 SELECT 
@@ -258,6 +391,38 @@ SELECT
   AVG(amount) OVER (PARTITION BY region) AS region_avg
 FROM sales;`}
           />
+
+          <div className="bg-yellow-50 dark:bg-zinc-800 p-4 rounded-lg mb-4">
+            <h3 className="font-semibold mb-2">Prisma: Window Functions</h3>
+            <p className="text-sm mb-2">
+              <strong>Important:</strong> Prisma doesn't support window functions directly. Use raw queries.
+            </p>
+            <CodeBlock
+              title="Prisma: Window Functions (Raw Query)"
+              language="typescript"
+              code={`// Window functions require raw queries
+const rankedUsers = await prisma.$queryRaw\`\`
+  SELECT 
+    name,
+    RANK() OVER (ORDER BY salary DESC) AS rank
+  FROM "Employee"
+  WHERE salary IS NOT NULL
+\`\`;
+
+// Or calculate in application after fetching
+const employees = await prisma.employee.findMany({
+  orderBy: {
+    salary: 'desc',
+  },
+});
+
+// Calculate rank in JavaScript
+const ranked = employees.map((emp, index) => ({
+  ...emp,
+  rank: index + 1,
+}));`}
+            />
+          </div>
         </section>
 
         <section className="mb-8">
@@ -314,7 +479,7 @@ WHERE avg_sal > 50000;`}
           />
 
           <CodeBlock
-            title="EXISTS vs IN - Interview Favorite"
+            title="SQL: EXISTS vs IN - Interview Favorite"
             language="sql"
             code={`-- EXISTS: Stops after first match (often faster)
 SELECT * 
@@ -334,12 +499,45 @@ WHERE id IN (
 -- Interview Tip: EXISTS is generally faster for large datasets
 -- Use IN when you need to check against a small, static list`}
           />
+
+          <CodeBlock
+            title="Prisma: EXISTS vs IN Pattern"
+            language="typescript"
+            code={`// EXISTS equivalent: Use some/none
+const customersWithOrders = await prisma.customer.findMany({
+  where: {
+    orders: {
+      some: {},  // EXISTS - at least one order
+    },
+  },
+});
+
+// NOT EXISTS equivalent
+const customersWithoutOrders = await prisma.customer.findMany({
+  where: {
+    orders: {
+      none: {},  // NOT EXISTS - no orders
+    },
+  },
+});
+
+// IN equivalent: Use in
+const customersInList = await prisma.customer.findMany({
+  where: {
+    id: {
+      in: [1, 2, 3, 4, 5],  // Static list
+    },
+  },
+});
+
+// Interview Tip: Prisma's some/none are optimized similar to EXISTS`}
+          />
         </section>
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">Common Table Expressions (CTEs)</h2>
           <CodeBlock
-            title="CTE Syntax"
+            title="SQL: CTE Syntax"
             language="sql"
             code={`WITH cte_name AS (
   SELECT ...
@@ -350,8 +548,41 @@ another_cte AS (
 SELECT * FROM cte_name;`}
           />
 
+          <div className="bg-yellow-50 dark:bg-zinc-800 p-4 rounded-lg mb-4">
+            <h3 className="font-semibold mb-2">Prisma: CTEs</h3>
+            <p className="text-sm mb-2">
+              Prisma doesn't support CTEs directly. Use raw queries or break into multiple queries.
+            </p>
+            <CodeBlock
+              title="Prisma: CTEs (Raw Query)"
+              language="typescript"
+              code={`// CTEs require raw queries
+const result = await prisma.$queryRaw\`\`
+  WITH active_users AS (
+    SELECT * FROM "User" WHERE age >= 18
+  ),
+  published_posts AS (
+    SELECT * FROM "Post" WHERE published = true
+  )
+  SELECT * FROM active_users
+\`\`;
+
+// Or use multiple Prisma queries
+const activeUsers = await prisma.user.findMany({
+  where: { age: { gte: 18 } },
+});
+
+const publishedPosts = await prisma.post.findMany({
+  where: { published: true },
+  include: { author: true },
+});
+
+// Then combine in application code`}
+            />
+          </div>
+
           <CodeBlock
-            title="Recursive CTE (Important for Interviews!)"
+            title="SQL: Recursive CTE (Important for Interviews!)"
             language="sql"
             code={`-- Find all ancestors of an employee
 WITH RECURSIVE employee_hierarchy AS (
@@ -369,6 +600,39 @@ WITH RECURSIVE employee_hierarchy AS (
 )
 SELECT * FROM employee_hierarchy;`}
           />
+
+          <div className="bg-yellow-50 dark:bg-zinc-800 p-4 rounded-lg mb-4">
+            <h3 className="font-semibold mb-2">Prisma: Recursive CTEs</h3>
+            <p className="text-sm mb-2">
+              Recursive CTEs <strong>must</strong> use raw queries in Prisma.
+            </p>
+            <CodeBlock
+              title="Prisma: Recursive CTE (Raw Query Only)"
+              language="typescript"
+              code={`// Recursive CTEs require raw queries
+interface EmployeeHierarchy {
+  id: number;
+  name: string;
+  manager_id: number | null;
+  level: number;
+}
+
+const hierarchy = await prisma.$queryRaw<EmployeeHierarchy[]>\`\`
+  WITH RECURSIVE employee_hierarchy AS (
+    SELECT id, name, manager_id, 1 AS level
+    FROM "Employee"
+    WHERE manager_id IS NULL
+    
+    UNION ALL
+    
+    SELECT e.id, e.name, e.manager_id, eh.level + 1
+    FROM "Employee" e
+    INNER JOIN employee_hierarchy eh ON e.manager_id = eh.id
+  )
+  SELECT * FROM employee_hierarchy
+\`\`;`}
+            />
+          </div>
 
           <div className="bg-green-50 dark:bg-zinc-800 p-4 rounded-lg mb-4">
             <h3 className="font-semibold mb-2">CTE vs Subquery - Interview Questions</h3>
