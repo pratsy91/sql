@@ -280,6 +280,31 @@ const phases = [
       { id: 'window-functions-advanced', title: 'Window Functions & Advanced SQL', path: '/lessons/practical-queries/window-functions-advanced' },
       { id: 'complex-scenarios', title: 'Complex Real-World Scenarios', path: '/lessons/practical-queries/complex-scenarios' },
     ]
+  },
+  {
+    id: 'phase-22',
+    title: 'Phase 22: Most Asked Interview Questions',
+    lessons: [
+      { id: 'module-01-foundations', title: 'Module 1: Foundations & Setup', path: '/lessons/most-asked-interview-questions/module-01-foundations' },
+      { id: 'module-02-data-types', title: 'Module 2: Data Types', path: '/lessons/most-asked-interview-questions/module-02-data-types' },
+      { id: 'module-03-ddl', title: 'Module 3: DDL', path: '/lessons/most-asked-interview-questions/module-03-ddl' },
+      { id: 'module-04-constraints', title: 'Module 4: Constraints', path: '/lessons/most-asked-interview-questions/module-04-constraints' },
+      { id: 'module-05-dml', title: 'Module 5: DML', path: '/lessons/most-asked-interview-questions/module-05-dml' },
+      { id: 'module-06-dql', title: 'Module 6: DQL / SELECT', path: '/lessons/most-asked-interview-questions/module-06-dql' },
+      { id: 'module-07-functions', title: 'Module 7: Functions & Operators', path: '/lessons/most-asked-interview-questions/module-07-functions' },
+      { id: 'module-08-plpgsql', title: 'Module 8: PL/pgSQL', path: '/lessons/most-asked-interview-questions/module-08-plpgsql' },
+      { id: 'module-09-transactions', title: 'Module 9: Transactions & Concurrency', path: '/lessons/most-asked-interview-questions/module-09-transactions' },
+      { id: 'module-10-performance', title: 'Module 10: Performance', path: '/lessons/most-asked-interview-questions/module-10-performance' },
+      { id: 'module-11-security', title: 'Module 11: Security', path: '/lessons/most-asked-interview-questions/module-11-security' },
+      { id: 'module-12-backup', title: 'Module 12: Backup & Recovery', path: '/lessons/most-asked-interview-questions/module-12-backup' },
+      { id: 'module-13-replication', title: 'Module 13: Replication', path: '/lessons/most-asked-interview-questions/module-13-replication' },
+      { id: 'module-14-extensions', title: 'Module 14: Extensions', path: '/lessons/most-asked-interview-questions/module-14-extensions' },
+      { id: 'module-15-advanced', title: 'Module 15: Advanced Features', path: '/lessons/most-asked-interview-questions/module-15-advanced' },
+      { id: 'module-16-prisma', title: 'Module 16: Prisma ORM', path: '/lessons/most-asked-interview-questions/module-16-prisma' },
+      { id: 'module-17-monitoring', title: 'Module 17: Monitoring & Maintenance', path: '/lessons/most-asked-interview-questions/module-17-monitoring' },
+      { id: 'module-18-best-practices', title: 'Module 18: Best Practices', path: '/lessons/most-asked-interview-questions/module-18-best-practices' },
+      { id: 'module-19-relationships', title: 'Module 19: Relationships & Schema Design', path: '/lessons/most-asked-interview-questions/module-19-relationships' },
+    ]
   }
 ];
 
