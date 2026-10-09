@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { phase22Modules } from "./data/phase22";
+import { phase25Modules } from "./data/phase25";
 
 export default function Home() {
   const phases = [
@@ -302,28 +304,76 @@ export default function Home() {
     {
       id: 'phase-22',
       title: 'Phase 22: Most Asked Interview Questions',
-      description: 'Module-wise bank of the most asked PostgreSQL and Prisma interview questions mapped to Phases 1–19, with answers from junior through senior levels, covering latest PostgreSQL and Prisma Client patterns',
+      description: 'Most asked PostgreSQL and Prisma interview questions, split into lessons inside each module (for example Data Types has Numeric, Character, JSON). Junior through senior. Existing questions are kept.',
+      lessons: phase22Modules.map((mod) => ({
+        id: mod.id,
+        title: mod.title,
+        path: mod.path,
+        children: mod.lessons,
+      })),
+    },
+    {
+      id: 'phase-23',
+      title: 'Phase 23: Most Asked Query Interview Questions',
+      description: 'Module-wise bank of the most asked SQL and Prisma query problems mapped to Phases 1–19 — write-the-query interview drills from junior through senior, with full answers',
       lessons: [
-        { id: 'module-01-foundations', title: 'Module 1: Foundations & Setup', path: '/lessons/most-asked-interview-questions/module-01-foundations' },
-        { id: 'module-02-data-types', title: 'Module 2: Data Types', path: '/lessons/most-asked-interview-questions/module-02-data-types' },
-        { id: 'module-03-ddl', title: 'Module 3: DDL', path: '/lessons/most-asked-interview-questions/module-03-ddl' },
-        { id: 'module-04-constraints', title: 'Module 4: Constraints', path: '/lessons/most-asked-interview-questions/module-04-constraints' },
-        { id: 'module-05-dml', title: 'Module 5: DML', path: '/lessons/most-asked-interview-questions/module-05-dml' },
-        { id: 'module-06-dql', title: 'Module 6: DQL / SELECT', path: '/lessons/most-asked-interview-questions/module-06-dql' },
-        { id: 'module-07-functions', title: 'Module 7: Functions & Operators', path: '/lessons/most-asked-interview-questions/module-07-functions' },
-        { id: 'module-08-plpgsql', title: 'Module 8: PL/pgSQL', path: '/lessons/most-asked-interview-questions/module-08-plpgsql' },
-        { id: 'module-09-transactions', title: 'Module 9: Transactions & Concurrency', path: '/lessons/most-asked-interview-questions/module-09-transactions' },
-        { id: 'module-10-performance', title: 'Module 10: Performance', path: '/lessons/most-asked-interview-questions/module-10-performance' },
-        { id: 'module-11-security', title: 'Module 11: Security', path: '/lessons/most-asked-interview-questions/module-11-security' },
-        { id: 'module-12-backup', title: 'Module 12: Backup & Recovery', path: '/lessons/most-asked-interview-questions/module-12-backup' },
-        { id: 'module-13-replication', title: 'Module 13: Replication', path: '/lessons/most-asked-interview-questions/module-13-replication' },
-        { id: 'module-14-extensions', title: 'Module 14: Extensions', path: '/lessons/most-asked-interview-questions/module-14-extensions' },
-        { id: 'module-15-advanced', title: 'Module 15: Advanced Features', path: '/lessons/most-asked-interview-questions/module-15-advanced' },
-        { id: 'module-16-prisma', title: 'Module 16: Prisma ORM', path: '/lessons/most-asked-interview-questions/module-16-prisma' },
-        { id: 'module-17-monitoring', title: 'Module 17: Monitoring & Maintenance', path: '/lessons/most-asked-interview-questions/module-17-monitoring' },
-        { id: 'module-18-best-practices', title: 'Module 18: Best Practices', path: '/lessons/most-asked-interview-questions/module-18-best-practices' },
-        { id: 'module-19-relationships', title: 'Module 19: Relationships & Schema Design', path: '/lessons/most-asked-interview-questions/module-19-relationships' },
+        { id: 'q-module-01-foundations', title: 'Module 1: Foundations & Setup', path: '/lessons/most-asked-query-interview-questions/module-01-foundations' },
+        { id: 'q-module-02-data-types', title: 'Module 2: Data Types', path: '/lessons/most-asked-query-interview-questions/module-02-data-types' },
+        { id: 'q-module-03-ddl', title: 'Module 3: DDL', path: '/lessons/most-asked-query-interview-questions/module-03-ddl' },
+        { id: 'q-module-04-constraints', title: 'Module 4: Constraints', path: '/lessons/most-asked-query-interview-questions/module-04-constraints' },
+        { id: 'q-module-05-dml', title: 'Module 5: DML', path: '/lessons/most-asked-query-interview-questions/module-05-dml' },
+        { id: 'q-module-06-dql', title: 'Module 6: DQL / SELECT', path: '/lessons/most-asked-query-interview-questions/module-06-dql' },
+        { id: 'q-module-07-functions', title: 'Module 7: Functions & Operators', path: '/lessons/most-asked-query-interview-questions/module-07-functions' },
+        { id: 'q-module-08-plpgsql', title: 'Module 8: PL/pgSQL', path: '/lessons/most-asked-query-interview-questions/module-08-plpgsql' },
+        { id: 'q-module-09-transactions', title: 'Module 9: Transactions & Concurrency', path: '/lessons/most-asked-query-interview-questions/module-09-transactions' },
+        { id: 'q-module-10-performance', title: 'Module 10: Performance', path: '/lessons/most-asked-query-interview-questions/module-10-performance' },
+        { id: 'q-module-11-security', title: 'Module 11: Security', path: '/lessons/most-asked-query-interview-questions/module-11-security' },
+        { id: 'q-module-12-backup', title: 'Module 12: Backup & Recovery', path: '/lessons/most-asked-query-interview-questions/module-12-backup' },
+        { id: 'q-module-13-replication', title: 'Module 13: Replication', path: '/lessons/most-asked-query-interview-questions/module-13-replication' },
+        { id: 'q-module-14-extensions', title: 'Module 14: Extensions', path: '/lessons/most-asked-query-interview-questions/module-14-extensions' },
+        { id: 'q-module-15-advanced', title: 'Module 15: Advanced Features', path: '/lessons/most-asked-query-interview-questions/module-15-advanced' },
+        { id: 'q-module-16-prisma', title: 'Module 16: Prisma ORM', path: '/lessons/most-asked-query-interview-questions/module-16-prisma' },
+        { id: 'q-module-17-monitoring', title: 'Module 17: Monitoring & Maintenance', path: '/lessons/most-asked-query-interview-questions/module-17-monitoring' },
+        { id: 'q-module-18-best-practices', title: 'Module 18: Best Practices', path: '/lessons/most-asked-query-interview-questions/module-18-best-practices' },
+        { id: 'q-module-19-relationships', title: 'Module 19: Relationships & Schema Design', path: '/lessons/most-asked-query-interview-questions/module-19-relationships' },
       ]
+    },
+    {
+      id: 'phase-24',
+      title: 'Phase 24: Most Asked Output-Based Interview Questions',
+      description: 'Module-wise predict-the-output and fix-the-code drills mapped to Phases 1–19 — given SQL or Prisma, what prints, what errors, and the corrected version from junior through senior',
+      lessons: [
+        { id: 'o-module-01-foundations', title: 'Module 1: Foundations & Setup', path: '/lessons/most-asked-output-based-interview-questions/module-01-foundations' },
+        { id: 'o-module-02-data-types', title: 'Module 2: Data Types', path: '/lessons/most-asked-output-based-interview-questions/module-02-data-types' },
+        { id: 'o-module-03-ddl', title: 'Module 3: DDL', path: '/lessons/most-asked-output-based-interview-questions/module-03-ddl' },
+        { id: 'o-module-04-constraints', title: 'Module 4: Constraints', path: '/lessons/most-asked-output-based-interview-questions/module-04-constraints' },
+        { id: 'o-module-05-dml', title: 'Module 5: DML', path: '/lessons/most-asked-output-based-interview-questions/module-05-dml' },
+        { id: 'o-module-06-dql', title: 'Module 6: DQL / SELECT', path: '/lessons/most-asked-output-based-interview-questions/module-06-dql' },
+        { id: 'o-module-07-functions', title: 'Module 7: Functions & Operators', path: '/lessons/most-asked-output-based-interview-questions/module-07-functions' },
+        { id: 'o-module-08-plpgsql', title: 'Module 8: PL/pgSQL', path: '/lessons/most-asked-output-based-interview-questions/module-08-plpgsql' },
+        { id: 'o-module-09-transactions', title: 'Module 9: Transactions & Concurrency', path: '/lessons/most-asked-output-based-interview-questions/module-09-transactions' },
+        { id: 'o-module-10-performance', title: 'Module 10: Performance', path: '/lessons/most-asked-output-based-interview-questions/module-10-performance' },
+        { id: 'o-module-11-security', title: 'Module 11: Security', path: '/lessons/most-asked-output-based-interview-questions/module-11-security' },
+        { id: 'o-module-12-backup', title: 'Module 12: Backup & Recovery', path: '/lessons/most-asked-output-based-interview-questions/module-12-backup' },
+        { id: 'o-module-13-replication', title: 'Module 13: Replication', path: '/lessons/most-asked-output-based-interview-questions/module-13-replication' },
+        { id: 'o-module-14-extensions', title: 'Module 14: Extensions', path: '/lessons/most-asked-output-based-interview-questions/module-14-extensions' },
+        { id: 'o-module-15-advanced', title: 'Module 15: Advanced Features', path: '/lessons/most-asked-output-based-interview-questions/module-15-advanced' },
+        { id: 'o-module-16-prisma', title: 'Module 16: Prisma ORM', path: '/lessons/most-asked-output-based-interview-questions/module-16-prisma' },
+        { id: 'o-module-17-monitoring', title: 'Module 17: Monitoring & Maintenance', path: '/lessons/most-asked-output-based-interview-questions/module-17-monitoring' },
+        { id: 'o-module-18-best-practices', title: 'Module 18: Best Practices', path: '/lessons/most-asked-output-based-interview-questions/module-18-best-practices' },
+        { id: 'o-module-19-relationships', title: 'Module 19: Relationships & Schema Design', path: '/lessons/most-asked-output-based-interview-questions/module-19-relationships' },
+      ]
+    },
+    {
+      id: 'phase-25',
+      title: 'Phase 25: Scenario & Real-World Interview Questions',
+      description: 'Most asked production incidents mapped to Phases 1–19, plus a general debugging module. Each scenario includes what you see, why it happens, how to confirm it, and how to fix it, from junior through experienced.',
+      lessons: phase25Modules.map((mod) => ({
+        id: mod.id,
+        title: mod.title,
+        path: mod.path,
+        children: mod.lessons,
+      })),
     }
   ];
 
@@ -349,20 +399,49 @@ export default function Home() {
                 {phase.description}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {phase.lessons.map((lesson) => (
-                  <Link
-                    key={lesson.id}
-                    href={lesson.path}
-                    className="block p-4 border border-zinc-200 dark:border-zinc-700 rounded-lg hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-zinc-800 transition-colors"
-                  >
-                    <h3 className="font-semibold text-zinc-900 dark:text-zinc-50 mb-2">
-                      {lesson.title}
-                    </h3>
-                    <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                      Click to start learning →
-                    </p>
-                  </Link>
-                ))}
+                {phase.lessons.map((lesson) =>
+                  lesson.children?.length ? (
+                    <div key={lesson.id} className="md:col-span-3">
+                      <Link
+                        href={lesson.path}
+                        className="block p-4 mb-3 border border-zinc-200 dark:border-zinc-700 rounded-lg hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-zinc-800 transition-colors"
+                      >
+                        <h3 className="font-semibold text-zinc-900 dark:text-zinc-50 mb-1">
+                          {lesson.title}
+                        </h3>
+                        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                          {lesson.children.length} lessons — open the module, or jump to a topic below
+                        </p>
+                      </Link>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        {lesson.children.map((child) => (
+                          <Link
+                            key={child.id}
+                            href={child.path}
+                            className="block p-3 border border-zinc-200 dark:border-zinc-700 rounded-lg hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-zinc-800 transition-colors"
+                          >
+                            <h4 className="font-medium text-sm text-zinc-900 dark:text-zinc-50">
+                              {child.title}
+                            </h4>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <Link
+                      key={lesson.id}
+                      href={lesson.path}
+                      className="block p-4 border border-zinc-200 dark:border-zinc-700 rounded-lg hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-zinc-800 transition-colors"
+                    >
+                      <h3 className="font-semibold text-zinc-900 dark:text-zinc-50 mb-2">
+                        {lesson.title}
+                      </h3>
+                      <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                        Click to start learning →
+                      </p>
+                    </Link>
+                  )
+                )}
               </div>
             </div>
           ))}
